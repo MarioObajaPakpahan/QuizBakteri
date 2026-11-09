@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Pendaki Bakteri</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- HUD kiri atas -->
+<div id="hud" class="hidden">
+  <div class="hud-card">
+    <div class="hud-top"><span>PROGRESS</span><b id="progText">0%</b></div>
+    <div class="bar"><i id="progFill"></i></div>
+    <div class="hud-sub"><span id="hudPlayer"></span><span id="hudQ">Soal 0/10</span></div>
+    <div class="hud-sub hud-fight"><span id="hudHp"></span><span id="hudWpn"></span></div>
+    <div class="hud-keys"><kbd>A</kbd><kbd>D</kbd> jalan &nbsp;<kbd>W</kbd>/<kbd>Spasi</kbd> loncat &nbsp;<kbd>J</kbd>/klik tembak</div>
+  </div>
+  <div class="hud-right">
+    <div class="stopwatch" title="Waktu bermain"><span>WAKTU</span><b id="stopwatch">0:00</b></div>
+    <button id="muteBtn" class="icon-btn" title="Suara">🔊</button>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<!-- Kontrol sentuh (HP) -->
+<div id="pad" class="pad hidden">
+  <div class="pad-grp"><button data-k="l" aria-label="Kiri">◀</button><button data-k="r" aria-label="Kanan">▶</button></div>
+  <div class="pad-grp"><button data-k="d" aria-label="Turun">▼</button><button data-k="f" aria-label="Tembak">🔫</button><button data-k="u" aria-label="Loncat / panjat">▲</button></div>
+</div>
+
+<!-- Menu awal -->
+<section id="menu" class="screen">
+  <div class="card">
+    <div class="logo">🦠⛰️</div>
+    <h1>Pendaki Bakteri</h1>
+    <p class="sub">Panjat gunung dengan menjawab 10 soal tentang bakteri!</p>
+    <p class="credit">Game ini dibuat oleh team yang beranggotakan Mario, Yeremia, Johannes, Barra / X-2</p>
+    <label>Nama
+      <input id="nameInput" maxlength="20" placeholder="Tulis namamu" autocomplete="off">
+    </label>
+    <label>Kelas
+      <select id="classSelect"></select>
+    </label>
+    <p id="menuErr" class="err"></p>
+    <button id="startBtn" class="btn primary">Mulai Mendaki ▶</button>
+    <button id="openBoardBtn" class="btn ghost">🏆 Papan Peringkat</button>
+    <ul class="how">
+      <li>⌨️ <b>A / D</b> (atau panah) jalan, <b>W</b> atau <b>Spasi</b> loncat.</li>
+      <li>🖱️ Soal wajib dijawab dengan <b>klik / tap</b> pilihan A–D (keyboard tidak bisa).</li>
+      <li>🪜 Dekati tangga, jawab soal. Benar → tangga terbuka, tekan <b>W</b> untuk memanjat.</li>
+      <li>❌ Salah → tangga runtuh, kamu harus lewat jalan miring yang panjang.</li>
+      <li>🧗 Ada rintangan obby: jurang, batu melayang, platform bergerak, duri.</li>
+      <li>🦠 Virus menghadang? Jawab benar → senjata terbuka (tekan <b>J</b>, <b>K</b>, atau klik untuk menembak).</li>
+      <li>❤️ Kamu punya 3 nyawa saat bertarung. Jatuh ke jurang = kembali ke checkpoint.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Panel soal -->
+<section id="quiz" class="quiz hidden">
+  <div class="quiz-card">
+    <div id="qTag" class="qtag"></div>
+    <h3 id="qText"></h3>
+    <div id="opts" class="opts"></div>
+    <p class="qhint">👆 Pilih jawaban dengan klik / tap.</p>
+    <div id="fb" class="fb hidden">
+      <b id="fbTitle"></b>
+      <p id="fbText"></p>
+      <button id="nextBtn" class="btn primary">Lanjut ▶</button>
+    </div>
+  </div>
+</section>
+
+<!-- Hasil + leaderboard -->
+<section id="board" class="screen hidden">
+  <div class="card wide">
+    <div id="result" class="result hidden">
+      <h2 id="resTitle"></h2>
+      <div class="big"><span id="resScore">0</span><small>/100</small></div>
+      <div class="stats"><span id="resBenar"></span><span id="resTime"></span></div>
+      <p id="resSave" class="save"></p>
+    </div>
+    <div class="board-head">
+      <h2>🏆 Papan Peringkat</h2>
+      <select id="boardClass"></select>
+    </div>
+    <div class="table-wrap">
+      <table id="boardTable">
+        <thead><tr><th>#</th><th>Nama</th><th>Kelas</th><th>Nilai</th><th>Waktu Finish</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p id="boardNote" class="note"></p>
+    <button id="closeBoardBtn" class="btn primary">Kembali</button>
+  </div>
+</section>
+
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
